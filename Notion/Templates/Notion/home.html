@@ -12,6 +12,9 @@
 							Comment
 						</th>
 						<th>
+							Status
+						</th>
+						<th>
 
 						</th>
 					</tr>
@@ -25,14 +28,23 @@
 						<td>
 							{{ task.content }}
 						</td>
+                        <td>
+                        <form method="POST" action="{% url 'todo_complete' task.id %}">
+                        {% csrf_token %}
+                            <div class="form-group form-check">
+                                {{ task.done }}
+                                <input type="checkbox" onchange="this.form.submit()" {% if task.done %}checked{% endif %}>
+                            </div>
+                        </form>
+						</td>
 						<td>
 							<a href="{% url 'delete_task' task.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
 						</td>
                     </tr>
-                    {% empty %} No tasks yet.
                 {% endfor %}
 				</tbody>
 			</table>
+    <div class="empty-form">{% for task in tasks %}{% empty %} No tasks yet.{% endfor %}</div>
 
     <h3>Add a new task:</h3>
     <form method="POST">
@@ -44,6 +56,5 @@
         </div>
     {% endfor %}
         <button type="submit" class="btn btn-success">Add</button>
-
     </form>
 {% endblock %}

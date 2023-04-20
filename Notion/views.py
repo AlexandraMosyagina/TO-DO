@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
-
 def home(request):
     tasks = Task.objects.all()
     form = TaskForm()
+
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -16,4 +16,10 @@ def home(request):
 def delete_task(request, pk):
     task = Task.objects.get(id=pk)
     task.delete()
+    return redirect('home')
+
+def todo_complete(request, todo_id):
+    todo = Task.objects.get(id=todo_id)
+    todo.done = True
+    todo.save()
     return redirect('home')
