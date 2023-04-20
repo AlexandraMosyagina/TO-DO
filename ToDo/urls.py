@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Notion import views
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('delete-task/<str:pk>/', views.delete_task, name='delete_task'),
     path('complete/<int:todo_id>/', views.todo_complete, name='todo_complete'),
+    path('accounts/', include('allauth.urls')),
 ]

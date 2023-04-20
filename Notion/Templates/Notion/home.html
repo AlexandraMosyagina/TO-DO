@@ -1,6 +1,7 @@
 {% extends 'Notion/base.html' %}
 
 {% block content %}
+
     <h3 class="text-center">To-Do List</h3>
     <table class="table table-sm table-striped table-hover">
 				<thead>
@@ -57,4 +58,9 @@
     {% endfor %}
         <button type="submit" class="btn btn-success">Add</button>
     </form>
+<div class="google">
+{% load socialaccount %}
+{% providers_media_js %}
+<a href="{% provider_login_url 'google' %}">Sign In</a>
+</div>
 {% endblock %}
